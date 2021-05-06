@@ -1,0 +1,48 @@
+﻿@model Educacion.Areas.Admin.Models.AspNetUserRole
+
+@{
+    ViewBag.Title = "Eliminar Rol";
+}
+
+<h2>Eliminar Rol</h2>
+
+<h3>¿Esta seguro que desea eliminar este rol?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.HiddenFor(model => model.Funcion)
+        </dt>
+
+        <dd>
+            @Html.HiddenFor(model => model.Funcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetRole.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetRole.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,66 @@
+﻿@model Educacion.Models.Presente
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Presente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hora)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Presente1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Presente1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.Dni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.Dni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Materia.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Materia.Codigo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

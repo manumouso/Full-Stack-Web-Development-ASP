@@ -1,0 +1,407 @@
+USE [master]
+GO
+/****** Object:  Database [EducacionDB]    Script Date: 23/02/2020  ******/
+CREATE DATABASE [EducacionDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Educacion', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\Educacion.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Educacion_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\Educacion_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [EducacionDB] SET COMPATIBILITY_LEVEL = 140
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [EducacionDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [EducacionDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [EducacionDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [EducacionDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [EducacionDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [EducacionDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [EducacionDB] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [EducacionDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [EducacionDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [EducacionDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [EducacionDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [EducacionDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [EducacionDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [EducacionDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [EducacionDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [EducacionDB] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [EducacionDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [EducacionDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [EducacionDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [EducacionDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [EducacionDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [EducacionDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [EducacionDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [EducacionDB] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [EducacionDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [EducacionDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [EducacionDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [EducacionDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [EducacionDB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [EducacionDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [EducacionDB] SET QUERY_STORE = OFF
+GO
+USE [EducacionDB]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [EducacionDB]
+GO
+/****** Object:  Table [dbo].[Alumnos]    Script Date: 23/02/2020 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Alumnos](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Dni] [varchar](50) NOT NULL UNIQUE,
+	[Apellido] [varchar](50) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Alumnos] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Presentes]    Script Date: 23/02/2020  ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Presentes](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[IdAlumno] [int] NOT NULL,
+	[IdCurso] [int] NOT NULL,
+	[IdMateria] [int] NULL,
+	[Fecha] [date] NOT NULL,
+	[Hora] [time] NOT NULL,
+	[Presente] [bit] NULL DEFAULT NULL,
+ CONSTRAINT [PK_Presentes] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+/****** Object:  Table [dbo].[Cursos]    Script Date: 23/02/2020 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cursos](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Codigo] [varchar](50) NOT NULL UNIQUE,
+	[Descripcion] [varchar](50) NOT NULL,
+	[Inicio] [date] NOT NULL,
+	[Fin] [date] NOT NULL,
+	[Estado] [varchar](50) NULL DEFAULT '',
+	[CantidadClases] [int] NOT NULL,
+ CONSTRAINT [PK_Cursos] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Materias]    Script Date: 23/02/2020 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Materias](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Codigo] [varchar](50) NOT NULL UNIQUE,
+	[Descripcion] [varchar](50) NOT NULL,	
+ CONSTRAINT [PK_Materias] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Notas]    Script Date: 06/01/2020 18:07:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Notas](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[IdAlumno] [int] NOT NULL,
+	[IdMateria] [int] NULL,
+	[Tipo] [varchar](50) NOT NULL,
+	[Fecha] [date] NOT NULL,
+	[Valor] [int] NOT NULL,
+ CONSTRAINT [PK_Notas] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Profesores]    Script Date: 06/01/2020 18:07:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Profesores](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Apellido] [varchar](50) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Profesores] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AlumnosCursos]    Script Date: 06/01/2020 18:07:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AlumnosCursos](
+	[IdAlumno] [int] NOT NULL,
+	[IdCurso] [int] NOT NULL,
+ CONSTRAINT [PK_AlumnosCursos] PRIMARY KEY CLUSTERED 
+(
+	[IdAlumno] ASC,
+	[IdCurso] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AlumnosMaterias]    Script Date: 06/01/2020 18:07:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AlumnosMaterias](
+	[IdAlumno] [int] NOT NULL,
+	[IdMateria] [int] NOT NULL,
+ CONSTRAINT [PK_AlumnosMaterias] PRIMARY KEY CLUSTERED 
+(
+	[IdAlumno] ASC,
+	[IdMateria] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ProfesoresMaterias]    Script Date: 06/01/2020 18:07:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ProfesoresMaterias](
+	[IdProfesor] [int] NOT NULL,
+	[IdMateria] [int] NOT NULL,
+ CONSTRAINT [PK_ProfesoresMaterias] PRIMARY KEY CLUSTERED 
+(
+	[IdProfesor] ASC,
+	[IdMateria] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[ProfesoresCursos]    Script Date: 06/01/2020 18:07:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ProfesoresCursos](
+	[IdProfesor] [int] NOT NULL,
+	[IdCurso] [int] NOT NULL,
+ CONSTRAINT [PK_ProfesoresCursos] PRIMARY KEY CLUSTERED 
+(
+	[IdProfesor] ASC,
+	[IdCurso] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[CursosMaterias]    Script Date: 06/01/2020 18:07:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CursosMaterias](
+	[IdCurso] [int] NOT NULL,
+	[IdMateria] [int] NOT NULL,
+ CONSTRAINT [PK_CursosMaterias] PRIMARY KEY CLUSTERED 
+(
+	[IdCurso] ASC,
+	[IdMateria] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING ON
+
+GO
+ALTER TABLE [dbo].[Presentes]  WITH CHECK ADD  CONSTRAINT [FK_Presentes_Alumnos] FOREIGN KEY([IdAlumno])
+REFERENCES [dbo].[Alumnos] ([ID])
+GO
+ALTER TABLE [dbo].[Presentes] CHECK CONSTRAINT [FK_Presentes_Alumnos]
+GO
+ALTER TABLE [dbo].[Presentes]  WITH CHECK ADD  CONSTRAINT [FK_Presentes_Cursos] FOREIGN KEY([IdCurso])
+REFERENCES [dbo].[Cursos] ([ID])
+GO
+ALTER TABLE [dbo].[Presentes] CHECK CONSTRAINT [FK_Presentes_Cursos]
+GO
+ALTER TABLE [dbo].[Presentes]  WITH CHECK ADD  CONSTRAINT [FK_Presentes_Materias] FOREIGN KEY([IdMateria])
+REFERENCES [dbo].[Materias] ([ID])
+GO
+ALTER TABLE [dbo].[Presentes] CHECK CONSTRAINT [FK_Presentes_Materias]
+
+GO
+ALTER TABLE [dbo].[Notas]  WITH CHECK ADD  CONSTRAINT [FK_Notas_Materias] FOREIGN KEY([IdMateria])
+REFERENCES [dbo].[Materias] ([ID])
+GO
+ALTER TABLE [dbo].[Notas] CHECK CONSTRAINT [FK_Notas_Materias]
+GO
+ALTER TABLE [dbo].[Notas]  WITH CHECK ADD  CONSTRAINT [FK_Notas_Alumnos] FOREIGN KEY([IdAlumno])
+REFERENCES [dbo].[Alumnos] ([ID])
+GO
+ALTER TABLE [dbo].[Notas] CHECK CONSTRAINT [FK_Notas_Alumnos]
+
+
+GO
+ALTER TABLE [dbo].[AlumnosCursos]  WITH CHECK ADD  CONSTRAINT [FK_AlumnosCursos_Alumnos] FOREIGN KEY([idAlumno])
+REFERENCES [dbo].[Alumnos] ([ID])
+GO
+ALTER TABLE [dbo].[AlumnosCursos] CHECK CONSTRAINT [FK_AlumnosCursos_Alumnos]
+
+GO
+ALTER TABLE [dbo].[AlumnosCursos]  WITH CHECK ADD  CONSTRAINT [FK_AlumnosCursos_Cursos] FOREIGN KEY([idCurso])
+REFERENCES [dbo].[Cursos] ([ID])
+GO
+ALTER TABLE [dbo].[AlumnosCursos] CHECK CONSTRAINT [FK_AlumnosCursos_Cursos]
+GO
+ALTER TABLE [dbo].[CursosMaterias]  WITH CHECK ADD  CONSTRAINT [FK_CursosMaterias_Cursos] FOREIGN KEY([IdCurso])
+REFERENCES [dbo].[Cursos] ([ID])
+GO
+ALTER TABLE [dbo].[CursosMaterias] CHECK CONSTRAINT [FK_CursosMaterias_Cursos]
+
+GO
+ALTER TABLE [dbo].[CursosMaterias]  WITH CHECK ADD  CONSTRAINT [FK_CursosMaterias_Materias] FOREIGN KEY([IdMateria])
+REFERENCES [dbo].[Materias] ([ID])
+GO
+ALTER TABLE [dbo].[CursosMaterias] CHECK CONSTRAINT [FK_CursosMaterias_Materias]
+
+GO
+ALTER TABLE [dbo].[AlumnosMaterias]  WITH CHECK ADD  CONSTRAINT [FK_AlumnosMaterias_Alumnos] FOREIGN KEY([IdAlumno])
+REFERENCES [dbo].[Alumnos] ([ID])
+GO
+ALTER TABLE [dbo].[AlumnosMaterias] CHECK CONSTRAINT [FK_AlumnosMaterias_Alumnos]
+
+GO
+ALTER TABLE [dbo].[AlumnosMaterias]  WITH CHECK ADD  CONSTRAINT [FK_AlumnosMaterias_Materias] FOREIGN KEY([IdMateria])
+REFERENCES [dbo].[Materias] ([ID])
+GO
+ALTER TABLE [dbo].[AlumnosMaterias] CHECK CONSTRAINT [FK_AlumnosMaterias_Materias]
+
+GO
+ALTER TABLE [dbo].[ProfesoresMaterias]  WITH CHECK ADD  CONSTRAINT [FK_ProfesoresMaterias_Profesores] FOREIGN KEY([IdProfesor])
+REFERENCES [dbo].[Profesores] ([ID])
+GO
+ALTER TABLE [dbo].[ProfesoresMaterias] CHECK CONSTRAINT [FK_ProfesoresMaterias_Profesores]
+
+GO
+ALTER TABLE [dbo].[ProfesoresMaterias]  WITH CHECK ADD  CONSTRAINT [FK_ProfesoresMaterias_Materias] FOREIGN KEY([IdMateria])
+REFERENCES [dbo].[Materias] ([ID])
+GO
+ALTER TABLE [dbo].[ProfesoresMaterias] CHECK CONSTRAINT [FK_ProfesoresMaterias_Materias]
+
+GO
+ALTER TABLE [dbo].[ProfesoresCursos]  WITH CHECK ADD  CONSTRAINT [FK_ProfesoresCursos_Profesores] FOREIGN KEY([IdProfesor])
+REFERENCES [dbo].[Profesores] ([ID])
+GO
+ALTER TABLE [dbo].[ProfesoresCursos] CHECK CONSTRAINT [FK_ProfesoresCursos_Profesores]
+
+GO
+ALTER TABLE [dbo].[ProfesoresCursos]  WITH CHECK ADD  CONSTRAINT [FK_ProfesoresCursos_Cursos] FOREIGN KEY([IdCurso])
+REFERENCES [dbo].[Cursos] ([ID])
+GO
+ALTER TABLE [dbo].[ProfesoresCursos] CHECK CONSTRAINT [FK_ProfesoresCursos_Cursos]
+
+GO
+ALTER DATABASE [EducacionDB] SET  READ_WRITE 
+
+go
+use EducacionDB
+go
+alter table [dbo].[Alumnos] add Email varchar(50) NOT NULL UNIQUE;
+
+go
+use EducacionDB
+go
+alter table [dbo].[Profesores] add Email varchar(50) NOT NULL UNIQUE;
+
+go
+use EducacionDB
+go
+alter table [dbo].[AlumnosCursos] add Funcion varchar(50) NULL;
+
+go
+use EducacionDB
+go
+alter table [dbo].[AlumnosMaterias] add Funcion varchar(50) NULL;
+
+go
+use EducacionDB
+go
+alter table [dbo].[CursosMaterias] add Funcion varchar(50) NULL;
+
+go
+use EducacionDB
+go
+alter table [dbo].[ProfesoresCursos] add Funcion varchar(50) NULL;
+
+go
+use EducacionDB
+go
+alter table [dbo].[ProfesoresMaterias] add Funcion varchar(50) NULL;

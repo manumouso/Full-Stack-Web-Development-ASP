@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EducacionDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Alumnos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Dni" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlumnosCursos">
+    <Key>
+      <PropertyRef Name="IdAlumno" />
+      <PropertyRef Name="IdCurso" />
+    </Key>
+    <Property Name="IdAlumno" Type="int" Nullable="false" />
+    <Property Name="IdCurso" Type="int" Nullable="false" />
+    <Property Name="Funcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AlumnosMaterias">
+    <Key>
+      <PropertyRef Name="IdAlumno" />
+      <PropertyRef Name="IdMateria" />
+    </Key>
+    <Property Name="IdAlumno" Type="int" Nullable="false" />
+    <Property Name="IdMateria" Type="int" Nullable="false" />
+    <Property Name="Funcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Cursos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Inicio" Type="date" />
+    <Property Name="Fin" Type="date" />
+    <Property Name="Estado" Type="varchar" MaxLength="50" />
+    <Property Name="CantidadClases" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CursosMaterias">
+    <Key>
+      <PropertyRef Name="IdCurso" />
+      <PropertyRef Name="IdMateria" />
+    </Key>
+    <Property Name="IdCurso" Type="int" Nullable="false" />
+    <Property Name="IdMateria" Type="int" Nullable="false" />
+    <Property Name="Funcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Materias">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CantidadClases" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notas">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAlumno" Type="int" Nullable="false" />
+    <Property Name="IdMateria" Type="int" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Valor" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Presentes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAlumno" Type="int" Nullable="false" />
+    <Property Name="IdCurso" Type="int" Nullable="false" />
+    <Property Name="IdMateria" Type="int" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Presente" Type="bit" />
+  </EntityType>
+  <EntityType Name="Profesores">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfesoresCursos">
+    <Key>
+      <PropertyRef Name="IdProfesor" />
+      <PropertyRef Name="IdCurso" />
+    </Key>
+    <Property Name="IdProfesor" Type="int" Nullable="false" />
+    <Property Name="IdCurso" Type="int" Nullable="false" />
+    <Property Name="Funcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProfesoresMaterias">
+    <Key>
+      <PropertyRef Name="IdProfesor" />
+      <PropertyRef Name="IdMateria" />
+    </Key>
+    <Property Name="IdProfesor" Type="int" Nullable="false" />
+    <Property Name="IdMateria" Type="int" Nullable="false" />
+    <Property Name="Funcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_AlumnosCursos_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="1" />
+    <End Role="AlumnosCursos" Type="Self.AlumnosCursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosCursos">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlumnosCursos_Cursos">
+    <End Role="Cursos" Type="Self.Cursos" Multiplicity="1" />
+    <End Role="AlumnosCursos" Type="Self.AlumnosCursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosCursos">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlumnosMaterias_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="1" />
+    <End Role="AlumnosMaterias" Type="Self.AlumnosMaterias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosMaterias">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlumnosMaterias_Materias">
+    <End Role="Materias" Type="Self.Materias" Multiplicity="1" />
+    <End Role="AlumnosMaterias" Type="Self.AlumnosMaterias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosMaterias">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CursosMaterias_Cursos">
+    <End Role="Cursos" Type="Self.Cursos" Multiplicity="1" />
+    <End Role="CursosMaterias" Type="Self.CursosMaterias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CursosMaterias">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CursosMaterias_Materias">
+    <End Role="Materias" Type="Self.Materias" Multiplicity="1" />
+    <End Role="CursosMaterias" Type="Self.CursosMaterias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CursosMaterias">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="1" />
+    <End Role="Notas" Type="Self.Notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notas">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_Materias">
+    <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
+    <End Role="Notas" Type="Self.Notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notas">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presentes_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="1" />
+    <End Role="Presentes" Type="Self.Presentes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Presentes">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presentes_Cursos">
+    <End Role="Cursos" Type="Self.Cursos" Multiplicity="1" />
+    <End Role="Presentes" Type="Self.Presentes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Presentes">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presentes_Materias">
+    <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
+    <End Role="Presentes" Type="Self.Presentes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Presentes">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresCursos_Cursos">
+    <End Role="Cursos" Type="Self.Cursos" Multiplicity="1" />
+    <End Role="ProfesoresCursos" Type="Self.ProfesoresCursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresCursos">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresCursos_Profesores">
+    <End Role="Profesores" Type="Self.Profesores" Multiplicity="1" />
+    <End Role="ProfesoresCursos" Type="Self.ProfesoresCursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesores">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresCursos">
+        <PropertyRef Name="IdProfesor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresMaterias_Materias">
+    <End Role="Materias" Type="Self.Materias" Multiplicity="1" />
+    <End Role="ProfesoresMaterias" Type="Self.ProfesoresMaterias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresMaterias">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresMaterias_Profesores">
+    <End Role="Profesores" Type="Self.Profesores" Multiplicity="1" />
+    <End Role="ProfesoresMaterias" Type="Self.ProfesoresMaterias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesores">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresMaterias">
+        <PropertyRef Name="IdProfesor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="EducacionDBModelStoreContainer">
+    <EntitySet Name="Alumnos" EntityType="Self.Alumnos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AlumnosCursos" EntityType="Self.AlumnosCursos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AlumnosMaterias" EntityType="Self.AlumnosMaterias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cursos" EntityType="Self.Cursos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CursosMaterias" EntityType="Self.CursosMaterias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Materias" EntityType="Self.Materias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notas" EntityType="Self.Notas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Presentes" EntityType="Self.Presentes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Profesores" EntityType="Self.Profesores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProfesoresCursos" EntityType="Self.ProfesoresCursos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProfesoresMaterias" EntityType="Self.ProfesoresMaterias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AlumnosCursos_Alumnos" Association="Self.FK_AlumnosCursos_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="AlumnosCursos" EntitySet="AlumnosCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlumnosCursos_Cursos" Association="Self.FK_AlumnosCursos_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="AlumnosCursos" EntitySet="AlumnosCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlumnosMaterias_Alumnos" Association="Self.FK_AlumnosMaterias_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="AlumnosMaterias" EntitySet="AlumnosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlumnosMaterias_Materias" Association="Self.FK_AlumnosMaterias_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="AlumnosMaterias" EntitySet="AlumnosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CursosMaterias_Cursos" Association="Self.FK_CursosMaterias_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="CursosMaterias" EntitySet="CursosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CursosMaterias_Materias" Association="Self.FK_CursosMaterias_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="CursosMaterias" EntitySet="CursosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_Alumnos" Association="Self.FK_Notas_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="Notas" EntitySet="Notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_Materias" Association="Self.FK_Notas_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="Notas" EntitySet="Notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presentes_Alumnos" Association="Self.FK_Presentes_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="Presentes" EntitySet="Presentes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presentes_Cursos" Association="Self.FK_Presentes_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="Presentes" EntitySet="Presentes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presentes_Materias" Association="Self.FK_Presentes_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="Presentes" EntitySet="Presentes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresCursos_Cursos" Association="Self.FK_ProfesoresCursos_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="ProfesoresCursos" EntitySet="ProfesoresCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresCursos_Profesores" Association="Self.FK_ProfesoresCursos_Profesores">
+      <End Role="Profesores" EntitySet="Profesores" />
+      <End Role="ProfesoresCursos" EntitySet="ProfesoresCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresMaterias_Materias" Association="Self.FK_ProfesoresMaterias_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="ProfesoresMaterias" EntitySet="ProfesoresMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresMaterias_Profesores" Association="Self.FK_ProfesoresMaterias_Profesores">
+      <End Role="Profesores" EntitySet="Profesores" />
+      <End Role="ProfesoresMaterias" EntitySet="ProfesoresMaterias" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

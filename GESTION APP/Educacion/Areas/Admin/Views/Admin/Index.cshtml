@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Educacion.Areas.Admin.Models.ViewModelUsuarios>
+
+@{
+    ViewBag.Title = "Administradores";
+}
+
+<h2>Manejo de cuentas de usuarios</h2>
+<p>
+    @Html.ActionLink("Ver Roles Asignados", "Index", "UserRole")
+</p>
+<br />
+<p style="color:red">
+    @ViewBag.Mensaje
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreUsuario)
+        </th>
+
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreUsuario)
+            </td>
+            <td>
+                <div class="row">
+                    @using (Html.BeginForm("AsignarRoles", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="col-xs-4 form-horizontal">
+                            <input id="Text1" type="hidden" name="id" value=@item.ID />
+                            <input id="Text2" type="hidden" name="nombre" value=@item.NombreUsuario hidden="hidden" />
+                            @Html.DropDownList("rol", ViewBag.Roles as SelectList, new { @class = "form-control" })
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        <div class="col-md-3 form-horizontal">
+                            <button class="btn btn-primary" type="submit">
+                                Asignar Rol
+                            </button>
+                            <br />
+                        </div>
+                    }
+                </div>
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar Usuario", "Delete", new { id2 = item.ID })
+
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="~/Scripts/codigo.js"></script>

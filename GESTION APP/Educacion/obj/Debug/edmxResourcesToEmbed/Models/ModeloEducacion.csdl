@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EducacionDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Alumno">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Dni" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="AlumnosCursos" Relationship="Self.FK_AlumnosCursos_Alumnos" FromRole="Alumnos" ToRole="AlumnosCursos" />
+    <NavigationProperty Name="AlumnosMaterias" Relationship="Self.FK_AlumnosMaterias_Alumnos" FromRole="Alumnos" ToRole="AlumnosMaterias" />
+    <NavigationProperty Name="Notas" Relationship="Self.FK_Notas_Alumnos" FromRole="Alumnos" ToRole="Notas" />
+    <NavigationProperty Name="Presentes" Relationship="Self.FK_Presentes_Alumnos" FromRole="Alumnos" ToRole="Presentes" />
+  </EntityType>
+  <EntityType Name="AlumnosCurso">
+    <Key>
+      <PropertyRef Name="IdAlumno" />
+      <PropertyRef Name="IdCurso" />
+    </Key>
+    <Property Name="IdAlumno" Type="Int32" Nullable="false" />
+    <Property Name="IdCurso" Type="Int32" Nullable="false" />
+    <Property Name="Funcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Alumno" Relationship="Self.FK_AlumnosCursos_Alumnos" FromRole="AlumnosCursos" ToRole="Alumnos" />
+    <NavigationProperty Name="Curso" Relationship="Self.FK_AlumnosCursos_Cursos" FromRole="AlumnosCursos" ToRole="Cursos" />
+  </EntityType>
+  <EntityType Name="AlumnosMateria">
+    <Key>
+      <PropertyRef Name="IdAlumno" />
+      <PropertyRef Name="IdMateria" />
+    </Key>
+    <Property Name="IdAlumno" Type="Int32" Nullable="false" />
+    <Property Name="IdMateria" Type="Int32" Nullable="false" />
+    <Property Name="Funcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Alumno" Relationship="Self.FK_AlumnosMaterias_Alumnos" FromRole="AlumnosMaterias" ToRole="Alumnos" />
+    <NavigationProperty Name="Materia" Relationship="Self.FK_AlumnosMaterias_Materias" FromRole="AlumnosMaterias" ToRole="Materias" />
+  </EntityType>
+  <EntityType Name="Curso">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Inicio" Type="DateTime" Precision="0" />
+    <Property Name="Fin" Type="DateTime" Precision="0" />
+    <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CantidadClases" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AlumnosCursos" Relationship="Self.FK_AlumnosCursos_Cursos" FromRole="Cursos" ToRole="AlumnosCursos" />
+    <NavigationProperty Name="CursosMaterias" Relationship="Self.FK_CursosMaterias_Cursos" FromRole="Cursos" ToRole="CursosMaterias" />
+    <NavigationProperty Name="Presentes" Relationship="Self.FK_Presentes_Cursos" FromRole="Cursos" ToRole="Presentes" />
+    <NavigationProperty Name="ProfesoresCursos" Relationship="Self.FK_ProfesoresCursos_Cursos" FromRole="Cursos" ToRole="ProfesoresCursos" />
+  </EntityType>
+  <EntityType Name="CursosMateria">
+    <Key>
+      <PropertyRef Name="IdCurso" />
+      <PropertyRef Name="IdMateria" />
+    </Key>
+    <Property Name="IdCurso" Type="Int32" Nullable="false" />
+    <Property Name="IdMateria" Type="Int32" Nullable="false" />
+    <Property Name="Funcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Curso" Relationship="Self.FK_CursosMaterias_Cursos" FromRole="CursosMaterias" ToRole="Cursos" />
+    <NavigationProperty Name="Materia" Relationship="Self.FK_CursosMaterias_Materias" FromRole="CursosMaterias" ToRole="Materias" />
+  </EntityType>
+  <EntityType Name="Materia">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CantidadClases" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AlumnosMaterias" Relationship="Self.FK_AlumnosMaterias_Materias" FromRole="Materias" ToRole="AlumnosMaterias" />
+    <NavigationProperty Name="CursosMaterias" Relationship="Self.FK_CursosMaterias_Materias" FromRole="Materias" ToRole="CursosMaterias" />
+    <NavigationProperty Name="Notas" Relationship="Self.FK_Notas_Materias" FromRole="Materias" ToRole="Notas" />
+    <NavigationProperty Name="Presentes" Relationship="Self.FK_Presentes_Materias" FromRole="Materias" ToRole="Presentes" />
+    <NavigationProperty Name="ProfesoresMaterias" Relationship="Self.FK_ProfesoresMaterias_Materias" FromRole="Materias" ToRole="ProfesoresMaterias" />
+  </EntityType>
+  <EntityType Name="Nota">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAlumno" Type="Int32" Nullable="false" />
+    <Property Name="IdMateria" Type="Int32" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Valor" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Alumno" Relationship="Self.FK_Notas_Alumnos" FromRole="Notas" ToRole="Alumnos" />
+    <NavigationProperty Name="Materia" Relationship="Self.FK_Notas_Materias" FromRole="Notas" ToRole="Materias" />
+  </EntityType>
+  <EntityType Name="Presente">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAlumno" Type="Int32" Nullable="false" />
+    <Property Name="IdCurso" Type="Int32" Nullable="false" />
+    <Property Name="IdMateria" Type="Int32" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Hora" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Presente1" Type="Boolean" />
+    <NavigationProperty Name="Alumno" Relationship="Self.FK_Presentes_Alumnos" FromRole="Presentes" ToRole="Alumnos" />
+    <NavigationProperty Name="Curso" Relationship="Self.FK_Presentes_Cursos" FromRole="Presentes" ToRole="Cursos" />
+    <NavigationProperty Name="Materia" Relationship="Self.FK_Presentes_Materias" FromRole="Presentes" ToRole="Materias" />
+  </EntityType>
+  <EntityType Name="Profesore">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ProfesoresCursos" Relationship="Self.FK_ProfesoresCursos_Profesores" FromRole="Profesores" ToRole="ProfesoresCursos" />
+    <NavigationProperty Name="ProfesoresMaterias" Relationship="Self.FK_ProfesoresMaterias_Profesores" FromRole="Profesores" ToRole="ProfesoresMaterias" />
+  </EntityType>
+  <EntityType Name="ProfesoresCurso">
+    <Key>
+      <PropertyRef Name="IdProfesor" />
+      <PropertyRef Name="IdCurso" />
+    </Key>
+    <Property Name="IdProfesor" Type="Int32" Nullable="false" />
+    <Property Name="IdCurso" Type="Int32" Nullable="false" />
+    <Property Name="Funcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Curso" Relationship="Self.FK_ProfesoresCursos_Cursos" FromRole="ProfesoresCursos" ToRole="Cursos" />
+    <NavigationProperty Name="Profesore" Relationship="Self.FK_ProfesoresCursos_Profesores" FromRole="ProfesoresCursos" ToRole="Profesores" />
+  </EntityType>
+  <EntityType Name="ProfesoresMateria">
+    <Key>
+      <PropertyRef Name="IdProfesor" />
+      <PropertyRef Name="IdMateria" />
+    </Key>
+    <Property Name="IdProfesor" Type="Int32" Nullable="false" />
+    <Property Name="IdMateria" Type="Int32" Nullable="false" />
+    <Property Name="Funcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Materia" Relationship="Self.FK_ProfesoresMaterias_Materias" FromRole="ProfesoresMaterias" ToRole="Materias" />
+    <NavigationProperty Name="Profesore" Relationship="Self.FK_ProfesoresMaterias_Profesores" FromRole="ProfesoresMaterias" ToRole="Profesores" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_AlumnosCursos_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumno" Multiplicity="1" />
+    <End Role="AlumnosCursos" Type="Self.AlumnosCurso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosCursos">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlumnosMaterias_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumno" Multiplicity="1" />
+    <End Role="AlumnosMaterias" Type="Self.AlumnosMateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosMaterias">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumno" Multiplicity="1" />
+    <End Role="Notas" Type="Self.Nota" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notas">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presentes_Alumnos">
+    <End Role="Alumnos" Type="Self.Alumno" Multiplicity="1" />
+    <End Role="Presentes" Type="Self.Presente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumnos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Presentes">
+        <PropertyRef Name="IdAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlumnosCursos_Cursos">
+    <End Role="Cursos" Type="Self.Curso" Multiplicity="1" />
+    <End Role="AlumnosCursos" Type="Self.AlumnosCurso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosCursos">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlumnosMaterias_Materias">
+    <End Role="Materias" Type="Self.Materia" Multiplicity="1" />
+    <End Role="AlumnosMaterias" Type="Self.AlumnosMateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AlumnosMaterias">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CursosMaterias_Cursos">
+    <End Role="Cursos" Type="Self.Curso" Multiplicity="1" />
+    <End Role="CursosMaterias" Type="Self.CursosMateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CursosMaterias">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presentes_Cursos">
+    <End Role="Cursos" Type="Self.Curso" Multiplicity="1" />
+    <End Role="Presentes" Type="Self.Presente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Presentes">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresCursos_Cursos">
+    <End Role="Cursos" Type="Self.Curso" Multiplicity="1" />
+    <End Role="ProfesoresCursos" Type="Self.ProfesoresCurso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cursos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresCursos">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CursosMaterias_Materias">
+    <End Role="Materias" Type="Self.Materia" Multiplicity="1" />
+    <End Role="CursosMaterias" Type="Self.CursosMateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CursosMaterias">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notas_Materias">
+    <End Role="Materias" Type="Self.Materia" Multiplicity="0..1" />
+    <End Role="Notas" Type="Self.Nota" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Notas">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Presentes_Materias">
+    <End Role="Materias" Type="Self.Materia" Multiplicity="0..1" />
+    <End Role="Presentes" Type="Self.Presente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Presentes">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresMaterias_Materias">
+    <End Role="Materias" Type="Self.Materia" Multiplicity="1" />
+    <End Role="ProfesoresMaterias" Type="Self.ProfesoresMateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materias">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresMaterias">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresCursos_Profesores">
+    <End Role="Profesores" Type="Self.Profesore" Multiplicity="1" />
+    <End Role="ProfesoresCursos" Type="Self.ProfesoresCurso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesores">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresCursos">
+        <PropertyRef Name="IdProfesor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfesoresMaterias_Profesores">
+    <End Role="Profesores" Type="Self.Profesore" Multiplicity="1" />
+    <End Role="ProfesoresMaterias" Type="Self.ProfesoresMateria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesores">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProfesoresMaterias">
+        <PropertyRef Name="IdProfesor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EducacionDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Alumnos" EntityType="Self.Alumno" />
+    <EntitySet Name="AlumnosCursos" EntityType="Self.AlumnosCurso" />
+    <EntitySet Name="AlumnosMaterias" EntityType="Self.AlumnosMateria" />
+    <EntitySet Name="Cursos" EntityType="Self.Curso" />
+    <EntitySet Name="CursosMaterias" EntityType="Self.CursosMateria" />
+    <EntitySet Name="Materias" EntityType="Self.Materia" />
+    <EntitySet Name="Notas" EntityType="Self.Nota" />
+    <EntitySet Name="Presentes" EntityType="Self.Presente" />
+    <EntitySet Name="Profesores" EntityType="Self.Profesore" />
+    <EntitySet Name="ProfesoresCursos" EntityType="Self.ProfesoresCurso" />
+    <EntitySet Name="ProfesoresMaterias" EntityType="Self.ProfesoresMateria" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_AlumnosCursos_Alumnos" Association="Self.FK_AlumnosCursos_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="AlumnosCursos" EntitySet="AlumnosCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlumnosMaterias_Alumnos" Association="Self.FK_AlumnosMaterias_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="AlumnosMaterias" EntitySet="AlumnosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_Alumnos" Association="Self.FK_Notas_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="Notas" EntitySet="Notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presentes_Alumnos" Association="Self.FK_Presentes_Alumnos">
+      <End Role="Alumnos" EntitySet="Alumnos" />
+      <End Role="Presentes" EntitySet="Presentes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlumnosCursos_Cursos" Association="Self.FK_AlumnosCursos_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="AlumnosCursos" EntitySet="AlumnosCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlumnosMaterias_Materias" Association="Self.FK_AlumnosMaterias_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="AlumnosMaterias" EntitySet="AlumnosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CursosMaterias_Cursos" Association="Self.FK_CursosMaterias_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="CursosMaterias" EntitySet="CursosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presentes_Cursos" Association="Self.FK_Presentes_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="Presentes" EntitySet="Presentes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresCursos_Cursos" Association="Self.FK_ProfesoresCursos_Cursos">
+      <End Role="Cursos" EntitySet="Cursos" />
+      <End Role="ProfesoresCursos" EntitySet="ProfesoresCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CursosMaterias_Materias" Association="Self.FK_CursosMaterias_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="CursosMaterias" EntitySet="CursosMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notas_Materias" Association="Self.FK_Notas_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="Notas" EntitySet="Notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Presentes_Materias" Association="Self.FK_Presentes_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="Presentes" EntitySet="Presentes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresMaterias_Materias" Association="Self.FK_ProfesoresMaterias_Materias">
+      <End Role="Materias" EntitySet="Materias" />
+      <End Role="ProfesoresMaterias" EntitySet="ProfesoresMaterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresCursos_Profesores" Association="Self.FK_ProfesoresCursos_Profesores">
+      <End Role="Profesores" EntitySet="Profesores" />
+      <End Role="ProfesoresCursos" EntitySet="ProfesoresCursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfesoresMaterias_Profesores" Association="Self.FK_ProfesoresMaterias_Profesores">
+      <End Role="Profesores" EntitySet="Profesores" />
+      <End Role="ProfesoresMaterias" EntitySet="ProfesoresMaterias" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(EducacionDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(EducacionDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

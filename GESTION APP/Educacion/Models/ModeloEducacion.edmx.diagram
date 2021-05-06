@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31a235328a1f48dba30cac2d76e94f96" Name="Diagram1">
+        <EntityTypeShape EntityType="EducacionDBModel.Alumno" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.AlumnosCurso" Width="1.5" PointX="6" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.AlumnosMateria" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.Curso" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.CursosMateria" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.Materia" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.Nota" Width="1.5" PointX="6" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.Presente" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.Profesore" Width="1.5" PointX="3.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.ProfesoresCurso" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.ProfesoresMateria" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EducacionDBModel.sysdiagram" Width="1.5" PointX="8.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="EducacionDBModel.FK_AlumnosCursos_Alumnos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_AlumnosMaterias_Alumnos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_Notas_Alumnos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_Presentes_Alumnos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_AlumnosCursos_Cursos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_AlumnosMaterias_Materias" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_CursosMaterias_Cursos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_Presentes_Cursos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_ProfesoresCursos_Cursos" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_CursosMaterias_Materias" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_Notas_Materias" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_Presentes_Materias" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_ProfesoresMaterias_Materias" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_ProfesoresCursos_Profesores" ManuallyRouted="false" />
+        <AssociationConnector Association="EducacionDBModel.FK_ProfesoresMaterias_Profesores" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
